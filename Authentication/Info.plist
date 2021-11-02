@@ -2,6 +2,14 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>photo use</string>
+	<key>NSFileProviderDomainUsageDescription</key>
+	<string>fileuse</string>
+	<key>CFBundleDocumentTypes</key>
+	<array>
+		<dict/>
+	</array>
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>
@@ -80,6 +88,5 @@
 			</array>
 		</dict>
 	</dict>
-    
 </dict>
 </plist>

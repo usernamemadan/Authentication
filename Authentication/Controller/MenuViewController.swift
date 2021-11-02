@@ -7,18 +7,15 @@
 
 import UIKit
 
-protocol MenuViewControllerDelegate: AnyObject {
-    func didSelect(menuItem: MenuViewController.MenuOptions)
-}
-
 class MenuViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
   
     weak var delegate: MenuViewControllerDelegate?
     
     enum MenuOptions: String, CaseIterable{
         case notes = "Notes"
-        case settings = "Settings"
+        case profile = "Profile"
         case logout = "Logout"
+        case archive = "Archive"
         case about = "About"
     }
     

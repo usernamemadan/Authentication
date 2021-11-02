@@ -45,14 +45,14 @@ class SignUpViewController: UIViewController {
     }
     
     func showErrorAlert(error: String) {
-        var dialogMessage = UIAlertController(title: "error", message: error, preferredStyle: .alert)
+        let dialogMessage = UIAlertController(title: "error", message: error, preferredStyle: .alert)
         let ok = UIAlertAction(title: "OK", style: .default, handler: .none)
         dialogMessage.addAction(ok)
         self.present(dialogMessage, animated: true, completion: nil)
     }
     
     func showSuccessAlert() {
-        var dialogMessage = UIAlertController(title: "Done", message: "account created successfully", preferredStyle: .alert)
+        let dialogMessage = UIAlertController(title: "Done", message: "account created successfully", preferredStyle: .alert)
         let ok = UIAlertAction(title: "OK", style: .default, handler: { (action) -> Void in
             self.dismiss(animated: true, completion: nil)
          })

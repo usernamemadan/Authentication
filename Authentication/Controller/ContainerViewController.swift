@@ -17,12 +17,12 @@ class ContainerViewController: UIViewController {
     let menuVC = MenuViewController()
     var homeVC = HomeViewController()
     var navVC: UINavigationController?
-    let notesVC = NotesViewController()
 
 
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .red
+        homeVC = storyboard?.instantiateViewController(withIdentifier: "home") as! HomeViewController
         addChildVC()
     }
     
@@ -34,7 +34,7 @@ class ContainerViewController: UIViewController {
         menuVC.didMove(toParent: self)
       
         //home
-        homeVC = storyboard?.instantiateViewController(withIdentifier: "home") as! HomeViewController
+        
         homeVC.delegate = self
         let navVC = UINavigationController(rootViewController: homeVC)
         addChild(navVC)
@@ -42,14 +42,13 @@ class ContainerViewController: UIViewController {
         navVC.didMove(toParent: self)
         self.navVC = navVC
     }
-
-
+    
 }
 
 extension ContainerViewController: HomeViewControllerDelegate{
+    
     func didTapMenuButton() {
         toggleMenu(completion: nil)
-       
     }
     
     func toggleMenu(completion: (()-> Void)?){
@@ -81,24 +80,23 @@ extension ContainerViewController: HomeViewControllerDelegate{
 extension ContainerViewController: MenuViewControllerDelegate{
     func didSelect(menuItem: MenuViewController.MenuOptions) {
         toggleMenu { [weak self] in
+            guard let self = self else { return }
+   
             switch menuItem{
             case .notes:
-                print("clicked in notes")
-                self?.displayNotes()
                 break
-            case .settings:
+            case .profile:
+                self.homeVC.presentProfileScreen()
                 break
             case .logout:
-                
+                self.homeVC.logout()
+                break
+            case .archive:
                 break
             case .about:
                 break
             }
         }
     }
-    
-    
-
-   
     
 }
