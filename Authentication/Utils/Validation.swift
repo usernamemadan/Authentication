@@ -12,7 +12,7 @@ struct Validation {
     
     func isValidEmail(email:String) -> Bool {
         
-        guard email != nil else { return false }
+  //      guard email != nil else { return false }
         
         let regEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}"
         
@@ -21,7 +21,7 @@ struct Validation {
     }
     
     func isValidPassword(password: String) -> Bool {
-        guard password != nil else { return false }
+    //    guard password != nil else { return false }
 
         // at least one uppercase
         // at least one digit

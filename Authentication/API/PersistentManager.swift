@@ -41,7 +41,6 @@ struct PersistentManager{
             realmNotes.append(note)
         }
         self.realmNotes = realmNotes
-      //  completion(realmNotes)
     }
     
 }

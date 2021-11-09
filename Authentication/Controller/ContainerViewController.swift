@@ -8,17 +8,17 @@
 import UIKit
 
 class ContainerViewController: UIViewController {
+    // MARK: - properties
     enum MenuState {
         case opened
         case closed
     }
     private var menuState: MenuState = .closed
-    
     let menuVC = MenuViewController()
     var homeVC = HomeViewController()
     var navVC: UINavigationController?
 
-
+    // MARK: - lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .red
@@ -26,6 +26,7 @@ class ContainerViewController: UIViewController {
         addChildVC()
     }
     
+    // MARK: - helper functions
     func addChildVC(){
         //menu
         menuVC.delegate = self
@@ -34,7 +35,6 @@ class ContainerViewController: UIViewController {
         menuVC.didMove(toParent: self)
       
         //home
-        
         homeVC.delegate = self
         let navVC = UINavigationController(rootViewController: homeVC)
         addChild(navVC)
@@ -45,8 +45,8 @@ class ContainerViewController: UIViewController {
     
 }
 
+// MARK: - HomeViewControllerDelegate
 extension ContainerViewController: HomeViewControllerDelegate{
-    
     func didTapMenuButton() {
         toggleMenu(completion: nil)
     }
@@ -61,7 +61,6 @@ extension ContainerViewController: HomeViewControllerDelegate{
                     self?.menuState = .opened
                 }
             }
-            
         case .opened:
             UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: .curveEaseOut) {
                 self.navVC?.view.frame.origin.x = 0
@@ -77,6 +76,7 @@ extension ContainerViewController: HomeViewControllerDelegate{
     }
 }
 
+// MARK: - MenuViewControllerDelegate
 extension ContainerViewController: MenuViewControllerDelegate{
     func didSelect(menuItem: MenuViewController.MenuOptions) {
         toggleMenu { [weak self] in
@@ -84,15 +84,19 @@ extension ContainerViewController: MenuViewControllerDelegate{
    
             switch menuItem{
             case .notes:
-                break
+                showArchivedNotes = false
+                self.homeVC.viewDidAppear(true)
+                
             case .profile:
                 self.homeVC.presentProfileScreen()
-                break
+        
             case .logout:
                 self.homeVC.logout()
-                break
+            
             case .archive:
-                break
+                showArchivedNotes = true
+                self.homeVC.viewDidAppear(true)
+              
             case .about:
                 break
             }

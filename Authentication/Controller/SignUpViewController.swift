@@ -10,13 +10,16 @@ import Firebase
 import FirebaseAuth
 
 class SignUpViewController: UIViewController {
+    // MARK: - properties
     @IBOutlet weak var email: UITextField!
     @IBOutlet weak var password: UITextField!
     
+    // MARK: - lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
     }
     
+    // MARK: - actions
     @IBAction func signUp(_ sender: Any) {
         register()
     }
@@ -25,6 +28,7 @@ class SignUpViewController: UIViewController {
         dismiss(animated: true, completion: nil)
     }
     
+    // MARK: - helper functions
     func register() {
         guard let email = email.text else { return }
         guard let password = password.text else { return }

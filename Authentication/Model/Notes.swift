@@ -12,13 +12,15 @@ struct Notes{
     var title: String
     var notes: String
     var timeStamp: Date
+    var archived: Bool
     
     
-    init(documentID: String, title: String, notes: String, timeStamp: Date){
+    init(documentID: String, title: String, notes: String, timeStamp: Date, archived: Bool){
         self.title = title
         self.notes = notes
         self.timeStamp = timeStamp
         self.documentID = documentID
+        self.archived = archived
     }
     
     var dictionary: [String: Any] {
@@ -26,7 +28,8 @@ struct Notes{
             "title": title,
             "notes": notes,
             "timeStamp": timeStamp,
-            "documentID": documentID
+            "documentID": documentID,
+            "archived": archived
         ]
     }
 }

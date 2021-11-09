@@ -8,21 +8,22 @@
 import UIKit
 import FirebaseAuth
 import GoogleSignIn
-//import FacebookCore
-//import FacebookLogin
-//import FBSDKCoreKit
 import FBSDKLoginKit
 
 
 class LoginViewController: UIViewController {
  
+    // MARK: - properties
     @IBOutlet weak var email: UITextField!
     @IBOutlet weak var password: UITextField!
     let signInConfig = GIDConfiguration.init(clientID: "171806751686-5s7j4dquffnd9vgflifhvj4nnn41lvpl.apps.googleusercontent.com")
     
+    // MARK: - lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
     }
+    
+    // MARK: - actions
 
     @IBAction func login(_ sender: Any) {
         //return if username and password in not valid
@@ -48,18 +49,19 @@ class LoginViewController: UIViewController {
        presentSignUpScreen()
     }
         
-    
-    func showErrorAlert(error: String) {
-        let dialogMessage = UIAlertController(title: "error", message: error, preferredStyle: .alert)
-        let ok = UIAlertAction(title: "OK", style: .default, handler: .none)
-        dialogMessage.addAction(ok)
-        self.present(dialogMessage, animated: true, completion: nil)
-    }
-    
-    func presentSignUpScreen() {
-        let vc = storyboard?.instantiateViewController(withIdentifier: "signUp") as! SignUpViewController
-        vc.modalPresentationStyle = .fullScreen
-        present(vc, animated: true)
+    @IBAction func loginWithFacebook(_ sender: Any) {
+        let loginManager = LoginManager()
+        loginManager.logIn(permissions: ["public_profile"], from: self) { result, error in
+            if let error = error {
+                print("Encountered Erorr: \(error)")
+            }
+            else if let result = result, result.isCancelled {
+               // print("Cancelled")
+            }
+            else {
+                self.dismiss(animated: true, completion: nil)
+            }
+        }
     }
     
     @IBAction func loginWithGoogle(_ sender: Any){
@@ -73,21 +75,18 @@ class LoginViewController: UIViewController {
         }
     }
     
-    @IBAction func loginWithFacebook(_ sender: Any) {
-        let loginManager = LoginManager()
-        loginManager.logIn(permissions: ["public_profile"], from: self) { result, error in
-            if let error = error {
-                print("Encountered Erorr: \(error)")
-            }
-            else if let result = result, result.isCancelled {
-                print("Cancelled")
-            }
-            else {
-                print("Logged In")
-                self.dismiss(animated: true, completion: nil)
-            }
-        }
+    // MARK: - helper functions
+    func showErrorAlert(error: String) {
+        let dialogMessage = UIAlertController(title: "error", message: error, preferredStyle: .alert)
+        let ok = UIAlertAction(title: "OK", style: .default, handler: .none)
+        dialogMessage.addAction(ok)
+        self.present(dialogMessage, animated: true, completion: nil)
     }
     
+    func presentSignUpScreen() {
+        let vc = storyboard?.instantiateViewController(withIdentifier: "signUp") as! SignUpViewController
+        vc.modalPresentationStyle = .fullScreen
+        present(vc, animated: true)
+    }
 }
 

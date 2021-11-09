@@ -8,7 +8,6 @@
 import UIKit
 import Firebase
 import GoogleSignIn
-//import FacebookCore
 import FBSDKLoginKit
 
 
@@ -23,7 +22,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     application,
                     didFinishLaunchingWithOptions: launchOptions
                     )
-
         return true
     }
     
